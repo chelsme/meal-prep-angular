@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../users.service';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-users',
@@ -7,12 +7,13 @@ import { UsersService } from '../users.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  users;
+  users: any[];
 
   constructor(private getUsers: UsersService) {}
 
   ngOnInit() {
-    this.getUsers.fetchUsers();
-    this.users = this.getUsers.users;
+    this.getUsers.fetchUsers().subscribe((data: any[]) => {
+      this.users = data.sort(() => Math.random() - 0.5);
+    });
   }
 }

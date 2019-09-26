@@ -5,18 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UsersComponent } from './users/users/users.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { RecipesComponent } from './recipes/recipes/recipes.component';
+import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
+import { CreateUserComponent } from './users/create-user/create-user.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'chefs', component: UsersComponent },
   { path: 'recipes', component: RecipesComponent },
-  { path: 'recipes/:id', component: RecipeDetailComponent }
+  { path: 'recipes/:id', component: RecipeDetailComponent },
+  { path: 'create-user', component: CreateUserComponent }
 ];
 
 @NgModule({
@@ -27,7 +29,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     HomeComponent,
     RecipesComponent,
-    RecipeDetailComponent
+    RecipeDetailComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,

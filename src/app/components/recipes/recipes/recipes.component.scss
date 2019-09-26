@@ -1,0 +1,21 @@
+a {
+  color: darkslategrey;
+  text-decoration: none;
+}
+
+.sort-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.sort-button {
+  background-color: rgb(38, 98, 130);
+  border: 1px darkslategrey solid;
+  border-radius: 10px;
+  color: whitesmoke;
+  cursor: pointer;
+  margin: 10px;
+  outline: none;
+  padding: 10px 30px;
+  width: 150px;
+}

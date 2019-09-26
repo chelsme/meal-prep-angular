@@ -5,14 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UsersService {
-  users = {};
-
   constructor(private http: HttpClient) {}
 
   fetchUsers() {
-    this.http.get('http://localhost:3000/users').subscribe((response) => {
-      this.users = response;
-      return this.users;
-    });
+    return this.http.get('http://localhost:3000/users');
   }
 }

@@ -1,0 +1,17 @@
+<div class="recipe-container">
+  <h3>Sort by:</h3>
+  <div class="sort-buttons">
+    <div class="sort-button" (click)="sortAlphabetical()">Alphabetical</div>
+    <div class="sort-button" (click)="sortAscIngredientCount()">
+      Most Ingredients
+    </div>
+    <div class="sort-button" (click)="sortDecIngredientCount()">
+      Least Ingredients
+    </div>
+  </div>
+  <app-recipe-detail
+    *ngFor="let recipe of recipes"
+    routerLink="/recipes/{{ recipe.id }}"
+    [recipe]="recipe"
+  ></app-recipe-detail>
+</div>
