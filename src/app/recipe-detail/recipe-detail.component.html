@@ -1,0 +1,9 @@
+<div class="recipe">
+  <h2>{{ recipe.name }}</h2>
+  <div>
+    <p *ngFor="let ingredient of recipe.ingredients">
+      {{ ingredient.amount }} - {{ ingredient.name }}
+    </p>
+  </div>
+  <p>{{ recipe.instructions }}</p>
+</div>
