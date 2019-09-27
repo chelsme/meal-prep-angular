@@ -9,10 +9,10 @@ import { UsersService } from '../../../services/users.service';
 export class UsersComponent implements OnInit {
   users: any[];
 
-  constructor(private getUsers: UsersService) {}
+  constructor(private userService: UsersService) {}
 
   ngOnInit() {
-    this.getUsers.fetchUsers().subscribe((data: any[]) => {
+    this.userService.fetchUsers().subscribe((data: any[]) => {
       this.users = data.sort(() => Math.random() - 0.5);
     });
   }

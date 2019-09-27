@@ -11,9 +11,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {
-    console.log(this.route);
-  }
+  ngOnInit() {}
 
   add() {}
 }

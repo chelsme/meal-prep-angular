@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'chefs', component: UsersComponent },
   { path: 'recipes', component: RecipesComponent },
+  { path: 'chefs/:id', component: UserDetailComponent },
   { path: 'recipes/:id', component: RecipeDetailComponent },
   { path: 'create-user', component: CreateUserComponent }
 ];
@@ -36,7 +38,9 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

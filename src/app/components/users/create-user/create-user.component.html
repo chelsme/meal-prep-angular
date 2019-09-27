@@ -1,21 +1,40 @@
 <div class="container">
   <h1>Create User</h1>
-  <form>
+  <form (ngSubmit)="createUser()">
     <div class="form-group">
       <label for="name">Name: </label>
-      <input type="text" class="form-control" id="name" required />
+      <input
+        class="form-control"
+        type="text"
+        id="name"
+        name="name"
+        [formControl]="createUserControl.controls['name']"
+      />
     </div>
-
     <div class="form-group">
       <label for="password">Password: </label>
-      <input type="text" class="form-control" id="password" />
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        [formControl]="createUserControl.controls['password']"
+      />
     </div>
-
     <div class="form-group">
       <label for="confirm-password">Confirm Password: </label>
-      <input type="text" class="form-control" id="confirm-password" />
+      <input
+        type="password"
+        class="form-control"
+        id="confirmPassword"
+        name="confirmPassword"
+        [formControl]="createUserControl.controls['confirmPassword']"
+      />
     </div>
-
-    <button type="submit">Create User</button>
+    <button type="submit" [disabled]="!formValidation()">
+      Create User
+    </button>
   </form>
 </div>
+
+<!-- [disabled]="!createUser.form.valid" -->
