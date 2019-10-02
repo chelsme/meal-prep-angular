@@ -1,8 +1,10 @@
 <div class="user-container">
-  <app-user-detail
+  <div
     class="user"
     *ngFor="let user of users"
-    [user]="user"
     routerLink="/chefs/{{ user.id }}"
-  ></app-user-detail>
+  >
+    <h2>{{ user.name }}</h2>
+    <img src="/assets/profile-pics/{{ user.img }}.png" alt="{{ user.name }}" />
+  </div>
 </div>

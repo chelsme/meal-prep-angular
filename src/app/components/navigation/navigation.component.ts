@@ -12,6 +12,4 @@ export class NavigationComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {}
-
-  add() {}
 }

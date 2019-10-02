@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { RecipesComponent } from './recipes/recipes/recipes.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { CreateUserComponent } from './users/create-user/create-user.component';
+import { CreateRecipeComponent } from './recipes/create-recipe/create-recipe.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
   { path: 'recipes', component: RecipesComponent },
   { path: 'chefs/:id', component: UserDetailComponent },
   { path: 'recipes/:id', component: RecipeDetailComponent },
-  { path: 'create-user', component: CreateUserComponent }
+  { path: 'create-user', component: CreateUserComponent },
+  { path: 'create-recipe', component: CreateRecipeComponent }
 ];
 
 @NgModule({
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     HomeComponent,
     RecipesComponent,
     RecipeDetailComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    CreateRecipeComponent
   ],
   imports: [
     BrowserModule,

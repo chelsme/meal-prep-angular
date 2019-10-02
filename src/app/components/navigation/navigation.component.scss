@@ -11,12 +11,21 @@ a {
   padding: 15px 45px;
 }
 
-.add {
+.add-user,
+.add-recipe {
   cursor: pointer;
   height: 50px;
   outline: none;
   position: absolute;
+  width: 50px;
+}
+
+.add-user {
+  right: 150px;
+  top: 50px;
+}
+
+.add-recipe {
   right: 50px;
   top: 50px;
-  width: 50px;
 }

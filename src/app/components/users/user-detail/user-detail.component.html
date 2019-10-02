@@ -1,2 +1,21 @@
-<h2>{{ user.name }}</h2>
-<img [src]="imgUrl" alt="{{ user.name }}" />
+<div>
+  <h2>{{ user.name === undefinded ? user.name : user.name }}</h2>
+  <img [src]="imgUrl" alt="{{ user.name }}" />
+  <div
+    class="recipes"
+    *ngIf="user.recipes && user.recipes.length > 0; else noRecipes"
+  >
+    <div *ngFor="let recipe of user.recipes" class="recipe-card">
+      <h3>{{ recipe.name | titlecase }}</h3>
+      <ul *ngFor="let ingredient of recipe.ingredients">
+        <li>{{ ingredient.name }}</li>
+      </ul>
+      <p>{{ recipe.instructions }}</p>
+    </div>
+  </div>
+  <ng-template #noRecipes>
+    <div class="add-recipe-button" routerLink="/create-recipe">
+      Go add some recipes!
+    </div>
+  </ng-template>
+</div>

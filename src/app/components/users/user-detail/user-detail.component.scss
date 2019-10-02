@@ -1,3 +1,38 @@
 img {
   max-width: 250px;
 }
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recipe-card {
+  border: 1px solid darkslategrey;
+  border-radius: 10px;
+  margin: 10px;
+  min-height: 300px;
+  padding: 20px;
+  width: 600px;
+}
+
+ul {
+  text-align: left;
+}
+
+.recipe-card p {
+  margin: 0 20px;
+  text-align: left;
+}
+
+.add-recipe-button {
+  border: 2px darkslategrey solid;
+  border-radius: 15px;
+  cursor: pointer;
+  color: rgb(19, 44, 80);
+  margin: 10px auto;
+  outline: none;
+  padding: 15px 45px;
+  width: 200px;
+}

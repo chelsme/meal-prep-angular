@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from '../../../services/users.service';
 
 @Component({
@@ -8,44 +8,38 @@ import { UsersService } from '../../../services/users.service';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
-  createUserControl = new FormGroup({
-    name: new FormControl('', [Validators.min(3), Validators.required]),
-    password: new FormControl('', [Validators.min(3), Validators.required]),
-    confirmPassword: new FormControl('', [
-      Validators.min(3),
-      Validators.required
-    ])
-  });
+  createUserForm: FormGroup;
 
   constructor(private userService: UsersService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createUserForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3)
+      ]),
+      confirmPassword: new FormControl(null, Validators.required)
+    });
+  }
 
   formValidation() {
-    const nameControl = this.createUserControl.get('name');
-    const passwordControl = this.createUserControl.get('password');
-    const confirmPasswordControl = this.createUserControl.get(
-      'confirmPassword'
-    );
+    const name = this.createUserForm.get('name');
+    const password = this.createUserForm.get('password');
+    const confirmation = this.createUserForm.get('confirmPassword');
     return (
-      nameControl.valid && passwordControl.valid && confirmPasswordControl.valid
+      name.valid &&
+      password.valid &&
+      this.confirmPassword(password, confirmation)
     );
   }
 
-  confirmPassword() {
-    const passwordControl = this.createUserControl.get('password');
-    const confirmPasswordControl = this.createUserControl.get(
-      'confirmPassword'
-    );
-    return passwordControl.value === confirmPasswordControl.value;
+  confirmPassword(p, c) {
+    return p.value === c.value;
+    //  && p.touched && p.dirty && c.touched && c.dirty;
   }
 
-  createUser() {
-    if (this.confirmPassword() !== true) {
-      alert('Passwords must match');
-    } else {
-      alert('User successfully created!');
-      this.userService.createUser();
-    }
+  onCreateUser() {
+    this.userService.createUser(this.createUserForm.value);
   }
 }

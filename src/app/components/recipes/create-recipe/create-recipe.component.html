@@ -1,0 +1,58 @@
+<div class="container">
+  <h1>Create Recipe</h1>
+  <form [formGroup]="createRecipeForm" (ngSubmit)="onCreateRecipe()">
+    <div class="form-group">
+      <label for="name">Name: </label>
+      <input
+        class="form-control"
+        type="text"
+        id="name"
+        name="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="instructions">Instructions: </label>
+      <input
+        type="instructions"
+        class="form-control"
+        id="instructions"
+        name="instructions"
+        formControlName="instructions"
+      />
+    </div>
+    <div class="form-group">
+      <label for="time">Time: </label>
+      <input
+        type="time"
+        class="form-control"
+        id="time"
+        name="time"
+        formControlName="time"
+      />
+    </div>
+    <div class="form-group">
+      <label for="ingredients">Ingredients: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="ingredients"
+        name="ingredients"
+        formControlName="ingredients"
+      />
+    </div>
+    <div class="form-group">
+      <label for="ingredients">Ingredients: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="ingredients"
+        name="ingredients"
+        formControlName="ingredients"
+      />
+    </div>
+    <button type="submit">
+      Create Recipe
+    </button>
+  </form>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Create User</h1>
-  <form (ngSubmit)="createUser()">
+  <form [formGroup]="createUserForm" (ngSubmit)="onCreateUser()">
     <div class="form-group">
       <label for="name">Name: </label>
       <input
@@ -8,7 +8,7 @@
         type="text"
         id="name"
         name="name"
-        [formControl]="createUserControl.controls['name']"
+        formControlName="name"
       />
     </div>
     <div class="form-group">
@@ -18,7 +18,7 @@
         class="form-control"
         id="password"
         name="password"
-        [formControl]="createUserControl.controls['password']"
+        formControlName="password"
       />
     </div>
     <div class="form-group">
@@ -28,7 +28,7 @@
         class="form-control"
         id="confirmPassword"
         name="confirmPassword"
-        [formControl]="createUserControl.controls['confirmPassword']"
+        formControlName="confirmPassword"
       />
     </div>
     <button type="submit" [disabled]="!formValidation()">
@@ -36,5 +36,3 @@
     </button>
   </form>
 </div>
-
-<!-- [disabled]="!createUser.form.valid" -->
