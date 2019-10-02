@@ -19,9 +19,15 @@ export class CreateRecipeComponent implements OnInit {
       time: new FormControl(null),
       ingredients: new FormControl(null)
     });
+    this.addIngredients();
   }
 
   onCreateRecipe() {
     this.recipesService.createRecipe(this.createRecipeForm.value);
+  }
+
+  addIngredients() {
+    const ingredients = document.getElementById('ingredients');
+    ingredients.append('<h1>DFJLSLDFJS:LKDFJ:S</h1>');
   }
 }

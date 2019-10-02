@@ -1,5 +1,5 @@
 <div>
-  <h2>{{ user.name === undefinded ? user.name : user.name }}</h2>
+  <h2>{{ user.name }}</h2>
   <img [src]="imgUrl" alt="{{ user.name }}" />
   <div
     class="recipes"
@@ -7,9 +7,11 @@
   >
     <div *ngFor="let recipe of user.recipes" class="recipe-card">
       <h3>{{ recipe.name | titlecase }}</h3>
+      <h4>Ingredients:</h4>
       <ul *ngFor="let ingredient of recipe.ingredients">
-        <li>{{ ingredient.name }}</li>
+        <li>{{ ingredient.amount }} - {{ ingredient.name }}</li>
       </ul>
+      <h4>Instructions:</h4>
       <p>{{ recipe.instructions }}</p>
     </div>
   </div>
