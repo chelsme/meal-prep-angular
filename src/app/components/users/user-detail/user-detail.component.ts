@@ -23,18 +23,16 @@ export class UserDetailComponent implements OnInit {
   }
 
   selectUser() {
-    if (this.user.name === '' || this.user.img !== undefined) {
-      this.route.params.subscribe((params) => {
-        this.selectedUserId = params.id;
+    this.route.params.subscribe((params) => {
+      this.selectedUserId = params.id;
+    });
+    this.userService.fetchUsers().subscribe((data: any[]) => {
+      this.user = data.find((user) => {
+        console.log();
+        return user.id === parseInt(this.selectedUserId);
       });
-      this.userService.fetchUsers().subscribe((data: any[]) => {
-        this.user = data.find((user) => {
-          console.log();
-          return user.id === parseInt(this.selectedUserId);
-        });
-        this.setUserImg();
-      });
-    }
+      this.setUserImg();
+    });
   }
 
   setUserImg() {

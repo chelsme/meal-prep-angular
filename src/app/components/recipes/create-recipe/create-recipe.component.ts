@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RecipesService } from '../../../services/recipes.service';
 
 @Component({
@@ -9,25 +9,42 @@ import { RecipesService } from '../../../services/recipes.service';
 })
 export class CreateRecipeComponent implements OnInit {
   createRecipeForm: FormGroup;
-
+  ingredientCount = 1;
   constructor(private recipesService: RecipesService) {}
 
   ngOnInit() {
     this.createRecipeForm = new FormGroup({
-      name: new FormControl(null),
-      instructions: new FormControl(null),
+      name: new FormControl(null, Validators.required),
+      instructions: new FormControl(null, Validators.required),
       time: new FormControl(null),
-      ingredients: new FormControl(null)
+      amount1: new FormControl(null, Validators.required),
+      ingredients1: new FormControl(null, Validators.required)
     });
-    this.addIngredients();
   }
 
   onCreateRecipe() {
     this.recipesService.createRecipe(this.createRecipeForm.value);
   }
 
-  addIngredients() {
-    const ingredients = document.getElementById('ingredients');
-    ingredients.append('<h1>DFJLSLDFJS:LKDFJ:S</h1>');
+  addIngredients(n) {
+    const amount = this.createRecipeForm.get(`amount${n}`);
+    const ingredients = this.createRecipeForm.get(`ingredients${n}`);
+    if (amount.valid && ingredients.valid) {
+      this.ingredientCount = n + 1;
+      this.createRecipeForm.controls[`amount${n + 1}`] = new FormControl(
+        null,
+        Validators.required
+      );
+      this.createRecipeForm.controls[`ingredients${n + 1}`] = new FormControl(
+        null,
+        Validators.required
+      );
+    }
+  }
+
+  formValid() {
+    const name = this.createRecipeForm.get('name');
+    const instructions = this.createRecipeForm.get('instructions');
+    return name.valid && instructions.valid;
   }
 }
