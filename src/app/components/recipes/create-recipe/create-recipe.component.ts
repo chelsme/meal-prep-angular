@@ -45,7 +45,6 @@ export class CreateRecipeComponent implements OnInit {
         `ingredients${n + 1}`
       ] = new FormControl(null, Validators.required);
     }
-    console.log(this.createIngredientsForm);
   }
 
   formValid() {
