@@ -37,7 +37,7 @@ export class RecipesService {
             if (ing !== null) {
               this.http
                 .post('http://localhost:3000/ingredients', {
-                  recipe_id: resp.id,
+                  recipe_id: resp['id'],
                   name: ingredients[i],
                   amount: amounts[i]
                 })
