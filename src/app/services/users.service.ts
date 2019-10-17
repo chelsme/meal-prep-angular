@@ -14,7 +14,6 @@ export class UsersService {
     return this.http
       .get('http://localhost:3000/users')
       .subscribe((data: any[]) => {
-        console.log(data);
         this.users = data.sort(() => Math.random() - 0.5);
       });
   }
@@ -28,7 +27,6 @@ export class UsersService {
       })
       .subscribe((resp) => {
         this.fetchUsers();
-        console.log(this.users);
         this.router.navigate(['/chefs']);
       });
   }
