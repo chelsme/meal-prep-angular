@@ -29,7 +29,7 @@ export class RecipesService {
         name: recipeData.name,
         instructions: recipeData.instructions,
         time: recipeData.time,
-        user_id: 1
+        user_id: recipeData.chef
       })
       .pipe(
         concatMap((resp) =>
