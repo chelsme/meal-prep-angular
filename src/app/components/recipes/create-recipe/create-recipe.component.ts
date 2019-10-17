@@ -1,28 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RecipesService } from '../../../services/recipes.service';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-create-recipe',
   templateUrl: './create-recipe.component.html',
   styleUrls: ['./create-recipe.component.scss']
 })
-export class CreateRecipeComponent implements OnInit {
+export class CreateRecipeComponent implements OnInit, DoCheck {
   createRecipeForm: FormGroup;
   createIngredientsForm: FormGroup;
   ingredientCount = 1;
-  constructor(private recipesService: RecipesService) {}
+  users;
+  constructor(
+    private recipesService: RecipesService,
+    private usersService: UsersService
+  ) {}
 
   ngOnInit() {
     this.createRecipeForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       instructions: new FormControl(null, Validators.required),
-      time: new FormControl(null)
+      time: new FormControl(null),
+      chef: new FormControl(null)
     });
     this.createIngredientsForm = new FormGroup({
       amount1: new FormControl(null, Validators.required),
       ingredients1: new FormControl(null, Validators.required)
     });
+  }
+
+  ngDoCheck() {
+    if (this.users === undefined) {
+      this.usersService.fetchUsers();
+      this.users = this.usersService.users;
+    }
+
+    if (this.users && this.users.length !== this.usersService.users.length) {
+      this.users = this.usersService.users;
+    }
   }
 
   onCreateRecipe() {
