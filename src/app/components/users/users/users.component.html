@@ -5,6 +5,16 @@
     routerLink="/chefs/{{ user.id }}"
   >
     <h2>{{ user.name }}</h2>
-    <img src="/assets/profile-pics/{{ user.img }}.png" alt="{{ user.name }}" />
+    <img
+      *ngIf="user.img === null; else defaultImg"
+      src="/assets/profile-pics/default-user.png"
+      alt="{{ user.name }}"
+    />
+    <ng-template #defaultImg>
+      <img
+        src="/assets/profile-pics/{{ user.img }}.png"
+        alt="{{ user.name }}"
+      />
+    </ng-template>
   </div>
 </div>

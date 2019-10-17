@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  user = { name };
+  user;
   imgUrl;
   selectedUserId;
 
@@ -26,20 +26,17 @@ export class UserDetailComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.selectedUserId = params.id;
     });
-    this.userService.fetchUsers().subscribe((data: any[]) => {
-      this.user = data.find((user) => {
-        console.log();
-        return user.id === parseInt(this.selectedUserId);
-      });
-      this.setUserImg();
+    this.user = this.userService.users.find((user) => {
+      return user.id === parseInt(this.selectedUserId);
     });
+    this.setUserImg();
   }
 
   setUserImg() {
-    if (this.user.img !== undefined) {
-      this.imgUrl = `./assets/profile-pics/${this.user.img}.png`;
-    } else {
+    if (this.user.img === null) {
       this.imgUrl = `./assets/profile-pics/default-user.png`;
+    } else {
+      this.imgUrl = `./assets/profile-pics/${this.user.img}.png`;
     }
   }
 }

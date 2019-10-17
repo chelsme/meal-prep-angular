@@ -6,10 +6,17 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UsersService {
+  users;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   fetchUsers() {
-    return this.http.get('http://localhost:3000/users');
+    return this.http
+      .get('http://localhost:3000/users')
+      .subscribe((data: any[]) => {
+        console.log(data);
+        this.users = data.sort(() => Math.random() - 0.5);
+      });
   }
 
   createUser(formData) {
@@ -20,7 +27,8 @@ export class UsersService {
         password_confirmation: formData.password_confirmation
       })
       .subscribe((resp) => {
-        console.log(resp);
+        this.fetchUsers();
+        console.log(this.users);
         this.router.navigate(['/chefs']);
       });
   }
