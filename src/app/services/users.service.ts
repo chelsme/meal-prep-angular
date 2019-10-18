@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  users;
+  users = new BehaviorSubject<any>([]);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -14,7 +15,7 @@ export class UsersService {
     return this.http
       .get('http://localhost:3000/users')
       .subscribe((data: any[]) => {
-        this.users = data.sort(() => Math.random() - 0.5);
+        this.users.next(data.sort(() => Math.random() - 0.5));
       });
   }
 

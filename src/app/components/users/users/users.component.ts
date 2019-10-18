@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
 
 @Component({
@@ -6,22 +6,20 @@ import { UsersService } from '../../../services/users.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit, DoCheck {
+export class UsersComponent implements OnInit, OnDestroy {
   users: any[];
   imgUrl;
+  userSubscription;
 
   constructor(private userService: UsersService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userSubscription = this.userService.users.subscribe(
+      (resp) => (this.users = resp)
+    );
+  }
 
-  ngDoCheck() {
-    if (this.users === undefined) {
-      this.userService.fetchUsers();
-      this.users = this.userService.users;
-    }
-
-    if (this.users && this.users.length !== this.userService.users.length) {
-      this.users = this.userService.users;
-    }
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }

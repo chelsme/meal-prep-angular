@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ export class AppComponent {
   location = 'SWOHO';
   purpose = 'meal prep';
 
-  constructor() {}
+  constructor(private userService: UsersService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userService.fetchUsers();
+  }
 }
