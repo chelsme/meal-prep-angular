@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RecipesService } from '../../../services/recipes.service';
 import { UsersService } from '../../../services/users.service';
@@ -8,14 +8,15 @@ import { UsersService } from '../../../services/users.service';
   templateUrl: './create-recipe.component.html',
   styleUrls: ['./create-recipe.component.scss']
 })
-export class CreateRecipeComponent implements OnInit, DoCheck {
+export class CreateRecipeComponent implements OnInit, OnDestroy {
   createRecipeForm: FormGroup;
   createIngredientsForm: FormGroup;
   ingredientCount = 1;
   users;
+  userSubscription;
   constructor(
     private recipesService: RecipesService,
-    private usersService: UsersService
+    private userService: UsersService
   ) {}
 
   ngOnInit() {
@@ -29,17 +30,14 @@ export class CreateRecipeComponent implements OnInit, DoCheck {
       amount1: new FormControl(null, Validators.required),
       ingredients1: new FormControl(null, Validators.required)
     });
+
+    this.userSubscription = this.userService.users.subscribe(
+      (resp) => (this.users = resp)
+    );
   }
 
-  ngDoCheck() {
-    if (this.users === undefined) {
-      this.usersService.fetchUsers();
-      this.users = this.usersService.users;
-    }
-
-    if (this.users && this.users.length !== this.usersService.users.length) {
-      this.users = this.usersService.users;
-    }
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
   onCreateRecipe() {

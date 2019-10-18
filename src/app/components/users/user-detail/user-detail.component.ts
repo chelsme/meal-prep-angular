@@ -11,6 +11,8 @@ export class UserDetailComponent implements OnInit {
   user;
   imgUrl;
   selectedUserId;
+  routeSubscription;
+  selectedUserSubscription;
 
   constructor(
     private userService: UsersService,
@@ -22,13 +24,27 @@ export class UserDetailComponent implements OnInit {
     this.setUserImg();
   }
 
+  ngOnDestroy() {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+    console.log(this.user);
+    if (this.selectedUserSubscription) {
+      this.selectedUserSubscription.unsubscribe();
+    }
+  }
+
   selectUser() {
-    this.route.params.subscribe((params) => {
+    this.routeSubscription = this.route.params.subscribe((params) => {
       this.selectedUserId = params.id;
     });
-    this.user = this.userService.users.find((user) => {
-      return user.id === parseInt(this.selectedUserId);
-    });
+    this.selectedUserSubscription = this.userService.users.subscribe(
+      (users) => {
+        this.user = users.find((user) => {
+          return user.id === parseInt(this.selectedUserId);
+        });
+      }
+    );
     this.setUserImg();
   }
 

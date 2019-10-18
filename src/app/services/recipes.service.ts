@@ -14,7 +14,6 @@ export class RecipesService {
   }
 
   createRecipe(recipeData, ingredientData) {
-    let recipe;
     let amounts = [];
     let ingredients = [];
     for (let ing in ingredientData) {
@@ -51,7 +50,7 @@ export class RecipesService {
       )
       .subscribe(
         (success) => {
-          console.log('success');
+          console.log(success);
         },
         (errorData) => {
           console.log('womp womp', errorData);
