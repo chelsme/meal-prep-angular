@@ -8,20 +8,18 @@ import { RecipesService } from '../../../services/recipes.service';
 })
 export class RecipesComponent implements OnInit, OnDestroy {
   recipes: any[];
-  recipeSubscription;
+  recipesSubscription;
 
-  constructor(private getRecipes: RecipesService) {}
+  constructor(private recipesService: RecipesService) {}
 
   ngOnInit() {
-    this.recipeSubscription = this.getRecipes
-      .fetchRecipes()
-      .subscribe((data: any[]) => {
-        this.recipes = data;
-      });
+    this.recipesSubscription = this.recipesService.recipes.subscribe(
+      (resp) => (this.recipes = resp)
+    );
   }
 
   ngOnDestroy() {
-    this.recipeSubscription.unsubscribe();
+    this.recipesSubscription.unsubscribe();
   }
 
   sortAlphabetical() {

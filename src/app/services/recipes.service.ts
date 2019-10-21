@@ -2,15 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { concatMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
+  recipes = new BehaviorSubject<any>([]);
+
   constructor(private http: HttpClient, private router: Router) {}
 
   fetchRecipes() {
-    return this.http.get('http://localhost:3000/recipes');
+    return this.http
+      .get('http://localhost:3000/recipes')
+      .subscribe((data: any[]) => {
+        this.recipes.next(data);
+      });
   }
 
   createRecipe(recipeData, ingredientData) {

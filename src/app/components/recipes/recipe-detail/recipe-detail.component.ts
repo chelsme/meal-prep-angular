@@ -9,26 +9,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
   @Input() recipe = {};
+  recipes;
   selectedRecipeId;
   routeSubscription;
-  recipeSubscription;
+  recipesSubscription;
 
   constructor(
-    private getRecipes: RecipesService,
+    private recipesService: RecipesService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.selectRecipe();
+    this.recipesSubscription = this.recipesService.recipes.subscribe((resp) => {
+      this.recipes = resp;
+      this.selectRecipe();
+    });
   }
 
   ngOnDestroy() {
     if (this.routeSubscription) {
       this.routeSubscription.unsubscribe();
     }
-    if (this.recipeSubscription) {
-      this.recipeSubscription.unsubscribe();
-    }
+
+    this.recipesSubscription.unsubscribe();
   }
 
   selectRecipe() {
@@ -36,13 +39,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       this.routeSubscription = this.route.params.subscribe((params) => {
         this.selectedRecipeId = params.id;
       });
-      this.recipeSubscription = this.getRecipes
-        .fetchRecipes()
-        .subscribe((data: any[]) => {
-          this.recipe = data.find((recipe) => {
-            return recipe.id === parseInt(this.selectedRecipeId);
-          });
+      if (this.recipes.length > 0) {
+        this.recipe = this.recipes.find((recipe) => {
+          return recipe.id === parseInt(this.selectedRecipeId);
         });
+      }
     }
   }
 }
